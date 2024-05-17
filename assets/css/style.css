@@ -118,6 +118,7 @@ h3 {
     --main-clr: hsl(var(--clr-hue), 92%, 53%);
 
     aspect-ratio: 2.7 / 1;
+    min-width: 12ch;
     background-color: inherit;
     border: .12em solid var(--main-clr);
     border-radius: .3em;
