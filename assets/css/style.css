@@ -178,9 +178,12 @@ h3 {
 }
 
 .quote-container {
+    position: relative;
     margin: 130px 0 100px;
     font-size: 2.1875rem;
     color: hsl(var(--clr-hue), 60%, 60%);
+    min-height: 5rem;
+    min-width: 100vw;
     transition: all 0.15s;
 }
 
@@ -193,6 +196,39 @@ h3 {
     animation: quote-opacity 1.5s alternate backwards;
 }
 
+
+.loader-container {
+    position: absolute;
+    inset: -20px;
+    background-color: hsla(var(--clr-hue), 92%, 53%, 0.1);
+    backdrop-filter: blur(5px);
+    transition: all 0.5s;
+}
+
+.display-loader {
+    opacity: 1;
+    z-index: 10;
+}
+
+.hide-loader {
+    opacity: 0;
+    z-index: -1;
+}
+
+.loader {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 3rem;
+    height: 3rem;
+    border: 5px solid hsl(var(--clr-hue), 92%, 53%);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
 @keyframes quote-opacity {
     from {
         opacity: 0;
@@ -201,6 +237,16 @@ h3 {
         opacity: 1;
     }
 }
+
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
 
 @media (max-width: 576px) {
     html {
