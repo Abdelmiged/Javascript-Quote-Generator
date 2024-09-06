@@ -179,7 +179,8 @@ h3 {
 
 .quote-container {
     position: relative;
-    margin: 130px 0 100px;
+    margin: 8.125rem 0 100px;
+    padding: 0 3.125rem;
     font-size: 2.1875rem;
     color: hsl(var(--clr-hue), 60%, 60%);
     min-height: 5rem;
