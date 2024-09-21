@@ -8,6 +8,32 @@ const authorSpan = document.getElementById("author");
 
 const loaderContainer = document.querySelector(".loader-container");
 
+const categoriesFilter = document.querySelector(".categories-filter");
+categoriesFilter.addEventListener("click", openCategoriesFilter);
+
+const categoriesFilterContainer = document.querySelector(".categories-filter-container");
+
+const categoriesBackFilter = document.querySelector(".categories-backfilter");
+categoriesBackFilter.addEventListener("click", closeCategoriesFilter);
+
+const categories = [
+    'age',          'alone',         'amazing',       'anger',
+    'architecture', 'art',           'attitude',      'beauty',
+    'best',         'birthday',      'business',      'car',
+    'change',       'communication', 'computers',     'cool',
+    'courage',      'dad',           'dating',        'death',
+    'design',       'dreams',        'education',     'environmental',
+    'equality',     'experience',    'failure',       'faith',
+    'family',       'famous',        'fear',          'fitness',
+    'food',         'forgiveness',   'freedom',       'friendship',
+    'funny',        'future',        'god',           'good',
+    'government',   'graduation',    'great',         'happiness',
+    'health',       'history',       'home',          'hope',
+    'humor',        'imagination',   'inspirational', 'intelligence',
+    'jealousy',     'knowledge',     'leadership',    'learning',
+    'legal',        'life',          'love',          'marriage',
+    'medical',      'men',           'mom',           'money',
+    'morning',      'movies',        'success'];
 /* Local Quote Array */
 // let lastRandomIndex = -1;
 // let quotes = ["“Be yourself; everyone else is already taken.”― Oscar Wilde",
@@ -44,6 +70,8 @@ const loaderContainer = document.querySelector(".loader-container");
 
 const colors = document.getElementsByClassName("change-color");
 
+let categoryName = "";
+
 var animationTimeout;
 
 Array.from(colors).forEach((item) => {
@@ -53,10 +81,11 @@ Array.from(colors).forEach((item) => {
 function webPageInit() {
     generateQuote();
     randomOnStartColor();
+    generateCategories();
 }
 
 async function getQuote() {
-    let response = await fetch("https://api.api-ninjas.com/v1/quotes", {
+    let response = await fetch((categoryName === "") ? "https://api.api-ninjas.com/v1/quotes" : `https://api.api-ninjas.com/v1/quotes?category=${categoryName}`, {
         headers: {
             'X-Api-Key': "pvB1gJxclYTXCn+Gzsyhyw==SyAuDF0XakAXjh4Y",
         }
@@ -71,11 +100,11 @@ async function getQuote() {
 //     return quote.split(regex);
 // }
 
-// function getRandomInt(min, max) {
-//     const minCeiled = Math.ceil(min);
-//     const maxFloored = Math.floor(max);
-//     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
-// }
+function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
+}
 
 async function generateQuote() {
     loaderContainer.classList.replace("hide-loader", "display-loader");
@@ -121,4 +150,42 @@ function animateRemove() {
 function changeColor(event) {
     let hueValue = event.target.getAttribute("data-hue-value");
     document.body.style.setProperty("--clr-hue", hueValue);
+}
+
+function generateCategories() {
+    for(let item of categories) {
+        let div = document.createElement("div");
+        div.classList.add("category");
+        div.textContent = item;
+        div.role = "button";
+        div.addEventListener("click", selectCategory);
+        categoriesFilterContainer.appendChild(div);
+    }
+}
+
+function openCategoriesFilter(event) {
+    if(event.target === categoriesFilter)
+        event.target.style.setProperty("--display", "flex");
+}
+
+function closeCategoriesFilter(event) {
+    event.currentTarget.closest(".categories-filter").style.setProperty("--display", "none");
+}
+
+function selectCategory(event) {
+    let value = event.currentTarget.style.getPropertyValue("--light");
+
+    if(value === "" || value === "53%") {
+        event.currentTarget.style.setProperty("--light", "35%");
+        categoryName = event.currentTarget.textContent;
+    }
+    else {
+        event.currentTarget.style.setProperty("--light", "53%");
+        categoryName = "";
+    }
+
+    for(let item of document.querySelectorAll(".category")) {
+        if(item !== event.currentTarget)
+            item.style.setProperty("--light", "53%");
+    }
 }

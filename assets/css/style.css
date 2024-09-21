@@ -17,6 +17,22 @@ body {
     text-align: center;
     position: relative;
     overflow-x: hidden;
+    width: 100vw;
+}
+::-webkit-scrollbar {
+    width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--clr-hue), 92%, 53%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--clr-hue), 92%, 35%);
 }
 
 .palette-chooser {
@@ -42,6 +58,74 @@ body {
 
 .palette-chooser:hover {
     transform: translateX(-0.3%);
+}
+
+.categories-filter {
+    --display: none;
+
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.7rem;
+    border-radius: 1rem;
+    background-color: hsl(var(--clr-hue), 60%, 60%);
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #292828;
+    font-weight: bold;
+    transition: all .15s linear;
+}
+
+.categories-backfilter {
+    content: '';
+    position: fixed;
+    width: 150vw;
+    height: 150vh;
+    top: -100vh;
+    left: -50vw;
+    background-color: hsla(var(--clr-hue), 92%, 53%, 0.1);
+    backdrop-filter: blur(5px);
+    display: var(--display);
+}
+
+.categories-filter:hover {
+    background-color: hsl(var(--clr-hue), 50%, 45%);
+}
+
+.categories-filter-container {
+    position: absolute;
+    top: -80vh;
+    padding: 2rem;
+    width: 95vw;
+    left: 50%;
+    height: 25rem;
+    transform: translate(-50%);
+    display: var(--display);
+    gap: 0.5rem;
+    border-radius: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.category {
+    --light: 53%;
+
+    padding: 0.8rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(var(--clr-hue), 92%, var(--light));
+    transition: all 0.05s linear;
+}
+
+.category:hover {
+    background-color: hsl(var(--clr-hue), 92%, 35%);
 }
 
 .colors {
@@ -184,7 +268,7 @@ h3 {
     font-size: 2.1875rem;
     color: hsl(var(--clr-hue), 60%, 60%);
     min-height: 5rem;
-    min-width: 100vw;
+    width: 100vw;
     transition: all 0.15s;
 }
 
