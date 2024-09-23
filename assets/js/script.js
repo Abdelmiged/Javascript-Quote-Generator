@@ -124,7 +124,7 @@ async function generateQuote() {
     // authorSpan.textContent = "--" + parsedQuote[1];
 
     quoteParagraph.textContent = quote[0]["quote"];
-    authorSpan.textContent = quote[0]["author"];
+    authorSpan.textContent = "- " + quote[0]["author"];
 
     clearTimeout(animationTimeout);
     animateRemove();
